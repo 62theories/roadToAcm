@@ -2,70 +2,62 @@
 
 using namespace std;
 
-int arr[10][10];
-bool isEmpty[10];
-int index[10];
-int size[10];
+struct Data{
+	int column[10];
+	int size;
+	int indexNow;
+	bool isEmpty; 
+};
+
+typedef Data data; 
+
+data *arr;
+
 int main()
 {
-	
+	arr = (data*)malloc(sizeof(data)*10);
 	for(int i=0;i<10;i++)
 	{
 		for(int j=0;j<10;j++)
 		{
-			arr[i][j] = 0;
+			arr[i].column[j] = 0;	
 		}
+		arr[i].size = 0;
+		arr[i].indexNow = 0;
+		arr[i].isEmpty = false;	
 	}
-	
-	for(int i=0;i<10;i++)
-	{
-		size[i]=0;
-	}
-	
-	for(int i=0;i<10;i++)
-	{
-		index[i] = 0;
-	}
-	
-	for(int i=0;i<10;i++)
-	{
-		isEmpty[i] = false;
-	}
-	
 	int number;
 	int input;
 	
-	
 	cin >> number;
-	
 	
 	for(int i =0;i<number;i++)
 	{
 		cin >> input;
-		arr[input%10][index[input%10]%10] = input;
-		index[input%10] = (index[input%10] + 1)%10;
-		if(isEmpty[input%10] == false)
+		arr[input%10].column[arr[input%10].indexNow] = input;
+		arr[input%10].indexNow = (arr[input%10].indexNow + 1)%10; 
+		if(arr[input%10].isEmpty == false)
 		{
-			isEmpty[input%10] = true;
+			arr[input%10].isEmpty = true;
 		 } 
-		 if(size[input%10]<10)
+		 if(arr[input%10].size<10)
 		 {
-		 	size[input%10]++;
+		 	arr[input%10].size++;
 		 }
 	}
 	
 	for(int i =0;i<10;i++)
 	{
-		if(isEmpty[i] == false)
+		if(arr[i].isEmpty == false)
 		{
 			cout << "-" << endl;
 		 } 
 		 
 		 else
 		 {
-		 	for(int j=0;j<size[i];j++)
+		 	for(int j=0;j<arr[i].size;j++)
 		 	{
-		 		cout << arr[i][j] << " ";
+		 		cout << arr[i].column[j]<< " ";
 			 }
 			 cout << endl;
 		 }
